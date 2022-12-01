@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            function val(id){
+    return document.getElementById(id).value
+};
+function numval(id){
+    return Number(document.getElementById(id).value)
+};
+function update(){
+    inputs = ["s","u","v","a","t"]
+    let nullcheck = 0;
+    nulls = ""
+    for(let i = 0; i < 5; i++){
+        if(val(inputs[i]) == ""){
+            nullcheck += 1;
+            nulls += inputs[i]
+        };
+    };
+    console.log(nullcheck);
+    if(nullcheck == 2){
+        for(let i = 0; i < 2; i++){
+            document.getElementById(nulls[i]).setAttribute("readonly","")
+        };
+        let s = numval("s"), u = numval("u"), v = numval("v"), a = numval("a"), t = numval("t");
+        switch(nulls){
+            case "su":
+                u = v - (a * t); s = ((v + u) / 2) * t;
+                document.getElementById("u").value = u;
+                document.getElementById("s").value = s;
+                break;
+            case "sv":
+                v = u + (a * t); s = ((v + u) / 2) * t;
+                document.getElementById("v").value = v;
+                document.getElementById("s").value = s;
+                break;
+            case "sa":
+                s = ((v + u) / 2) * t; a = (v - u) / t;
+                document.getElementById("s").value = s;
+                document.getElementById("a").value = a;
+                break;
+            case "st":
+                t = (v - u) / a; s = ((v + u) / 2) * t;
+                document.getElementById("s").value = s;
+                document.getElementById("t").value = t;
+                break;
+            case "uv":
+                u = (s / t) - ((a * t) / 2); v = u + (a * t);
+                document.getElementById("u").value = u;
+                document.getElementById("v").value = v;
+                break;
+            case "ua":
+                u = ((2 * s) / t) - v; a = (v - u) / t;
+                document.getElementById("u").value = u;
+                document.getElementById("a").value = a;
+                break;
+            case "ut":
+                u = Math.sqrt((v ** 2) - (2 * a * s)); t = (v - u) / a;
+                document.getElementById("u").value = u;
+                document.getElementById("t").value = t;
+                break;
+            case "va":
+                v = ((2 * s) / t) - u; a = (v - u) / t;
+                document.getElementById("v").value = v;
+                document.getElementById("a").value = a;
+                break;
+            case "vt":
+                v = Math.sqrt((u ** 2) + (2 * a * s)); t = (v - u) / a;
+                document.getElementById("v").value = v;
+                document.getElementById("t").value = t;
+                break;
+            case "at":
+                t = (2 * s) / (v + u); a = (v - u) / t;
+                document.getElementById("a").value = a;
+                document.getElementById("t").value = t;
+                break;
+        };
+    };
+};
+function empty(){
+    document.getElementById("s").value = "";
+    document.getElementById("u").value = "";
+    document.getElementById("v").value = "";
+    document.getElementById("a").value = "";
+    document.getElementById("t").value = "";
+    document.getElementById("s").readOnly = false;
+    document.getElementById("u").readOnly = false;
+    document.getElementById("v").readOnly = false;
+    document.getElementById("a").readOnly = false;
+    document.getElementById("t").readOnly = false;
+};
+        </script>
+    </head>
+    <body id = "body" style = "white-space: nowrap;font-family: Verdana;font-size: medium;">
+        <h1>SUVAT Calculator.</h1>
+        <h2>Enter 3 of the values (only 3, not 4) and the program will fill in the other two. Assume all quantities are in SI units.</h2>
+        <div style = "position: absolute; top: 9em;left: 3em;">
+            <label for = "s">S:</label>
+            <textarea id = "s" cols = "10" rows = "1" style = "resize: none;position: absolute;left: 2em;"></textarea>
+        </div>
+        <div style = "position: absolute; top: 11em;left: 3em;">
+            <label for = "u">U:</label>
+            <textarea id = "u" cols = "10" rows = "1" style = "resize: none;position: absolute;left: 2em;"></textarea>
+        </div>
+        <div style = "position: absolute; top: 13em;left: 3em;">
+            <label for = "v">V:</label>
+            <textarea id = "v" cols = "10" rows = "1" style = "resize: none;position: absolute;left: 2em;"></textarea>
+        </div>
+        <div style = "position: absolute; top: 15em;left: 3em;">
+            <label for = "a">A:</label>
+            <textarea id = "a" cols = "10" rows = "1" style = "resize: none;position: absolute;left: 2em;"></textarea>
+        </div>
+        <div style = "position: absolute; top: 17em;left: 3em;">
+            <label for = "t">T:</label>
+            <textarea id = "t" cols = "10" rows = "1" style = "resize: none;position: absolute;left: 2em;"></textarea>
+        </div>
+        <button onclick = "empty()" style = "position: absolute;top: 26em;left: 7.15em;">Clear.</button>
+        <button onclick = "update()" style = "position: absolute;top: 23em;left: 6.25em;">Calculate.</button>
+    </body>
+</html>
